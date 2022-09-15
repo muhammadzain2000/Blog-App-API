@@ -51,7 +51,7 @@ public class AuthController {
 			) throws Exception {
 		
 		this.authenticate(request.getUsername(), request.getPassword());
-		System.out.println(request.getUsername());
+		System.out.println("USERNAME : " + request.getUsername());
 		
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
 		
@@ -91,7 +91,7 @@ public class AuthController {
 		
 	}
 	
-	
+	//generate new token when expired
 	@GetMapping("/token-expired/{token}")
 	public ResponseEntity<JwtAuthResponse> isTokenExpiredEmployee(@PathVariable String token) throws Exception {
         Optional<User> user = null;

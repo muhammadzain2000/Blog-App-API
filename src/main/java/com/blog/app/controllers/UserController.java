@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.blog.app.payloads.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,9 +52,9 @@ public class UserController {
 	//type nhi pata to <?> likhdo
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<?> deleteUser(@PathVariable("userId") Integer userId) {
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer userId) {
 		this.userService.deleteUser(userId);
-		return new ResponseEntity(Map.of("message","User deleted successfully"), HttpStatus.OK);
+		return new ResponseEntity(new ApiResponse("User deleted successfully",true), HttpStatus.OK);
 		
 	}
 	

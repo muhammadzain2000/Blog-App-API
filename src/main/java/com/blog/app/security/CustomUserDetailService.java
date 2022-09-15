@@ -10,11 +10,16 @@ import com.blog.app.exceptions.ResourceNotFoundException;
 import com.blog.app.models.User;
 import com.blog.app.repositories.UserRepo;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
 	@Autowired
 	private UserRepo userRepo;
+
+	@Autowired
+	private HttpSession httpSession;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -22,7 +27,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		
 		// loading user from database by username
 		User user = this.userRepo.findByEmail(username).orElseThrow(()-> new ResourceNotFoundException("User", "email:"+username, 0));
-		
+		httpSession.setAttribute("username", username);
 		return user;
 	}
 
